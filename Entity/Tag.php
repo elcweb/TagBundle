@@ -13,4 +13,12 @@ use FPN\TagBundle\Entity\Tag as BaseTag;
  */
 class Tag extends BaseTag
 {
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 }
