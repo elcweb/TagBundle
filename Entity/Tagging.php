@@ -3,12 +3,13 @@
 namespace Elcweb\TagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use FPN\TagBundle\Entity\Tagging as BaseTagging;
 
 /**
  * Tagging
  *
- * @ORM\Table()
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="tagging_idx", columns={"tag_id", "resource_type", "resource_id"})})
  * @ORM\Entity
  */
 class Tagging extends BaseTagging
@@ -21,4 +22,10 @@ class Tagging extends BaseTagging
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Tag")
+     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     **/
+    protected $tag;
 }

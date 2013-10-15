@@ -9,7 +9,7 @@ use FPN\TagBundle\Entity\Tag as BaseTag;
  * Tag
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DoctrineExtensions\Taggable\Entity\TagRepository")
  */
 class Tag extends BaseTag
 {
@@ -21,4 +21,9 @@ class Tag extends BaseTag
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Tagging", mappedBy="tag", fetch="EAGER")
+     **/
+    protected $tagging;
 }
