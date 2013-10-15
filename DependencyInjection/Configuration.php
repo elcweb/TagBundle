@@ -20,9 +20,27 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('elcweb_tag');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('model')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->children()
+                        ->scalarNode('tag_class')->isRequired()->cannotBeEmpty()
+                            ->defaultValue('Elcweb\TagBundle\Entity\Tag')
+                            ->end()
+                        ->scalarNode('tagging_class')->isRequired()->cannotBeEmpty()
+                            ->defaultValue('Elcweb\TagBundle\Entity\Tagging')
+                            ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('service')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('slugifier')->defaultValue('fpn_tag.slugifier.default')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }
